@@ -82,6 +82,7 @@ function game_draw()
  p2.draw()
  b.draw()
  draw_score()
+ draw_separator()
 end
 
 function game_update()
@@ -193,6 +194,13 @@ function draw_score()
  local s2=p2_score
  sspr(8*s1,0,8,8,16,16,16,16)
  sspr(8*s2,0,8,8,96,16,16,16)
+end
+
+function draw_separator()
+ local x=63
+ for y=0,128,16 do
+  rectfill(x,y,x+2,y+12,7)
+ end
 end
 -->8
 -- game over state
