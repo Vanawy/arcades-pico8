@@ -65,6 +65,7 @@ function init_game(mp)
  
  multiplayer=mp or false
  p_speed=1
+ b_speed=2
  p1_score=0
  p2_score=0
  setup()
@@ -89,7 +90,7 @@ function game_update()
  if(multiplayer) then
   input(p1,1)
  else
- 	ai(p1)
+ 	ai(p1, b)
  end
  input(p2)
  b.update()
@@ -121,21 +122,30 @@ function ball()
   dy=0,
  }
  if(rnd()>0.5) then
- 	b.dx=-1 
+ 	b.dx=-b_speed
  else 
- 	b.dx=1
+ 	b.dx=b_speed
  end
  
  function b.redirect(p)
-  b.dx=-b.dx
-  
-  local d=(b.y+b.h/2)-(p.y+p.h/2)
-  print(d)
-  if(d>0) then
-   b.dy=1
+  local h2=p.h/2
+  local d=(b.y+b.h/2)-(p.y+h2)
+  local a=9
+  if(b.dx<0) then
+   if(d<0) then
+   	a=mapvalue(d,-h2,0,
+   		0,0.2)  
+   else
+   	a=mapvalue(d,0,h2,
+   		1.0,0.8)
+   end
+   b.x=p.x+p.w
   else 
-  	b.dy=-1
+   a=mapvalue(d,-h2,h2,
+   	0.3,0.7)
+   b.x=p.x-b.w
   end
+  b.chdir(a)
  end
  function b.draw()
   rectfill(b.x,b.y,
@@ -153,6 +163,10 @@ function ball()
    b.dy=-b.dy
   end
  end
+ function b.chdir(angle)
+  b.dy=sin(angle)*b_speed
+  b.dx=cos(angle)*b_speed
+ end
  return b
 end
 
@@ -169,8 +183,7 @@ function paddle(x,y)
    p.x+p.w,p.y+p.h,7)
  end
  function p.update()
-  if(p.y+p.h>128) p.y=128-p.h
-  if(p.y<0) p.y=0
+  p.y=range(p.y,0,128-p.h)
   p.hit(b)
  end
  -- hit with a ball
@@ -225,13 +238,29 @@ end
  
 -->8
 -- ai 🅾️_🅾️
-function ai(pad)
- if(rnd()>0.5) then
- 	pad.y+=p_speed
- else
- 	pad.y-=p_speed
+function ai(pad, ball)
+ local dy=0
+ if(ball.dx>0) then
+  return
  end
+ if(ball.y>pad.y+pad.h/2) then
+ 	dy=p_speed
+ else
+ 	dy=-p_speed
+ end
+ pad.y+=dy
 end
+-->8
+--misc
+
+function range(v,a,b)
+ return max(a,min(b,v))
+end
+
+function mapvalue(v,a,b,ta,tb)
+ return ta+(v-a)/(b-a)*(tb-ta)
+end
+
 __gfx__
 00777700007770000077770000777700007007000077770000777700007777000077770000777700007777000000000000000000000000000000000000000000
 00700700000770000000070000000700007007000070000000700000000007000070070000700700007007000000000000000000000000000000000000000000

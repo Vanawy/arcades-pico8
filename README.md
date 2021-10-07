@@ -6,7 +6,7 @@
 ![Pong Cart Image](pong/index.p8.png)
 
 ### TODO:
-- [ ] Create single player AI
-- [ ] Modify speed of paddles and ball
+- [x] Create single player AI
+- [x] Modify speed of paddles and ball
 - [ ] Add help tab in menu
 - [ ] Add sounds and music
