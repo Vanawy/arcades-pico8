@@ -5,6 +5,10 @@
 
 ![Pong Cart Image](pong/index.p8.png)
 
+
+### Features:
+- Local multiplayer
+
 ### TODO:
 - [x] Create single player AI
 - [x] Modify speed of paddles and ball

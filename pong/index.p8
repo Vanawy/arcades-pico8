@@ -1,6 +1,8 @@
 pico-8 cartridge // http://www.pico-8.com
 version 33
 __lua__
+-- pong
+-- by vanawy
 function _init()
 	_draw=menu_draw
 	_update=menu_update
