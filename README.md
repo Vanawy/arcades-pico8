@@ -1,9 +1,9 @@
 # My Pico8 games
 
 ## List
-[Pong \[WIP\]](https://www.pico8.vanawy.dev/pong)
+[Pong \[WIP\]](https://www.pico8.vanawy.dev/pong/play)
 
-![Pong Cart Image](pong/index.p8.png)
+![Pong Cart Image](pong/play/index.p8.png)
 
 
 ### Features:
